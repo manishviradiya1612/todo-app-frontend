@@ -12,9 +12,6 @@ export default function TodoList() {
   const navigate = useNavigate();
   const { logout } = useAuth();
 
-  useEffect(() => {
-  fetchTodos();
-}, [fetchTodos]);
 
   const fetchTodos = useCallback(async () => {
   try {
@@ -28,6 +25,10 @@ export default function TodoList() {
     }
   }
 }, [navigate]);
+
+  useEffect(() => {
+  fetchTodos();
+}, [fetchTodos]);
 
   const handleAddTodo = async (e) => {
     e.preventDefault();
