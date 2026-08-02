@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'https://todo-app-backend-production-f240.up.railway.app/api',
 });
 
 // Add token to every request
