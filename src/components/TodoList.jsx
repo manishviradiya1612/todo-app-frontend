@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API from '../api';
 import '../styles/TodoList.css';
@@ -13,21 +13,21 @@ export default function TodoList() {
   const { logout } = useAuth();
 
   useEffect(() => {
-    fetchTodos();
-  }, []);
+  fetchTodos();
+}, [fetchTodos]);
 
-  const fetchTodos = async () => {
-    try {
-      const response = await API.get('/todos');
-      setTodos(response.data);
-    } catch (err) {
-      if (err.response?.status === 401) {
-        navigate('/login');
-      } else {
-        setError('Failed to fetch todos');
-      }
+  const fetchTodos = useCallback(async () => {
+  try {
+    const response = await API.get('/todos');
+    setTodos(response.data);
+  } catch (err) {
+    if (err.response?.status === 401) {
+      navigate('/login');
+    } else {
+      setError('Failed to fetch todos');
     }
-  };
+  }
+}, [navigate]);
 
   const handleAddTodo = async (e) => {
     e.preventDefault();
